@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,13 +35,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void decrement() {
-    if (count < 1) {
-      return;
-    }
     setState(() {
       count--;
     });
   }
+
+  bool get isEmpaty => count == 0;
+  bool get isFull => count == 20;
 
   @override
   Widget build(BuildContext context) {
@@ -56,27 +58,32 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Pode Entrar',
+              isFull ? 'Lotou' : 'Pode Entrar',
               style: TextStyle(
-                  color: Colors.black,
+                  color: isFull ? Colors.red : Colors.green,
                   fontSize: 38,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 5),
             ),
             Padding(
-              padding: EdgeInsets.all(32),
+              padding: EdgeInsets.all(40),
               child: Text(
                 '$count',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(
+                    fontSize: 30,
+                    color: isFull ? Colors.red : Colors.black,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: decrement,
+                  onPressed: isEmpaty ? null : decrement,
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: isEmpaty
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.white,
                       fixedSize: const Size(100, 100),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
@@ -93,9 +100,10 @@ class _HomePageState extends State<HomePage> {
                   width: 40,
                 ),
                 TextButton(
-                  onPressed: increment,
+                  onPressed: isFull ? null : increment,
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor:
+                          isFull ? Colors.white.withOpacity(0.2) : Colors.white,
                       fixedSize: const Size(100, 100),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
