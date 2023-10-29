@@ -33,6 +33,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void decrement() {
+    if (count < 1) {
+      return;
+    }
     setState(() {
       count--;
     });
@@ -49,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             fit: BoxFit.fill,
           ),
         ),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -62,19 +65,48 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.all(32),
-              child: Text('$count'),
+              child: Text(
+                '$count',
+                style: TextStyle(fontSize: 30),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton(
+                TextButton(
                   onPressed: decrement,
-                  child: Text('Decrementar'),
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      fixedSize: const Size(100, 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      )),
+                  child: const Text(
+                    'Saiu',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-                SizedBox(width: 32),
-                FloatingActionButton(
+                SizedBox(
+                  width: 40,
+                ),
+                TextButton(
                   onPressed: increment,
-                  child: Text('Incrementar'),
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      fixedSize: const Size(100, 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      )),
+                  child: const Text(
+                    'Entrou',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ],
             ),
